@@ -37,6 +37,7 @@ RUN mkdir temp
 WORKDIR /root/app
 
 EXPOSE 1337
+EXPOSE 80
 EXPOSE 9080
 
 CMD npm start
