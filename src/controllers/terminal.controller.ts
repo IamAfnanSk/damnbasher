@@ -91,7 +91,6 @@ export class TerminalController {
                    WW    WW\r
                    WW     WW\r
                     \r
-            Hii Mehul, How is this :)\r
           Completly interactive terminal\r\x1b[00m`);
 
     this.sendToClient("\n");

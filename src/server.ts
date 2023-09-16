@@ -1,3 +1,6 @@
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig();
+
 import http from "http";
 import { SocketController } from "./controllers/socketio.controller";
 
