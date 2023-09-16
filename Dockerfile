@@ -8,17 +8,17 @@ RUN apt install nodejs -y
 
 RUN apt install git -y
 
-RUN apt install npm -y
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 
-RUN npm i -g static-server --unsafe-perm=true
+RUN pnpm i -g static-server --unsafe-perm=true
 
 COPY . /root/app
 
 WORKDIR /root/app
 
-RUN npm i
+RUN pnpm i
 
-RUN npm run build
+RUN pnpm run build
 
 RUN adduser damner
 
@@ -40,4 +40,4 @@ EXPOSE 1337
 EXPOSE 80
 EXPOSE 9080
 
-CMD npm start
+CMD pnpm start
