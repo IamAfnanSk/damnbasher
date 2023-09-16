@@ -16,6 +16,8 @@ export class TerminalController {
       cwd: process.env.HOME,
       // @ts-ignore
       env: process.env,
+      cols: 80,
+      rows: 10,
     });
 
     this.startPtyProcess();
