@@ -4,6 +4,8 @@
 
 Damnbasher is responsible for handling all file I/O and CLI I/O of the Damnground app
 
+This is the container powering part of the project which is used by [damnground](https://github.com/IamAfnanSk/damnground) and [damnbackend](https://github.com/IamAfnanSk/damnbackend).
+
 ## Features
 
 - CRUD Files via SocketIO
