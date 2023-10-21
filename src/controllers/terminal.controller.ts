@@ -14,10 +14,9 @@ export class TerminalController {
 
     this.terminalPTYProcess = terminalPTY.spawn(this.shell, [], {
       name: "xterm-color",
-      cwd: process.env.HOME,
       // @ts-ignore
       env: process.env,
-      cols: 100,
+      cols: 150,
       rows: 10,
     });
 
@@ -26,17 +25,18 @@ export class TerminalController {
 
   startPtyProcess() {
     this.write("clear\r");
-    this.write("su damner\r");
-    this.write(`cd ${basicConstants.basePath}\r`);
-    this.write("clear\r");
 
     this.sendLogo();
 
-    this.write("\r");
+    setTimeout(() => {
+      this.write("su damner\r");
+      this.write(`cd ${basicConstants.basePath}\r`);
+      this.write("static-server\r");
 
-    this.terminalPTYProcess.onData((data) => {
-      this.sendToClient(data);
-    });
+      this.terminalPTYProcess.onData((data) => {
+        this.sendToClient(data);
+      });
+    }, 2000);
 
     this.socket.on("disconnect", () => {
       this.write("\u0003\r");
@@ -85,8 +85,9 @@ export class TerminalController {
             =#####=   .::::::\r
            -#######=    ::::::.\r
            .#######:     .:::::.\r
-             -+++-         ....\r           
-          Completly interactive terminal\r\x1b[00m`);
+             -+++-         ....\r
+
+Completly interactive terminal\r\x1b[00m`);
 
     this.sendToClient("\n");
     this.sendToClient(
