@@ -30,7 +30,7 @@ export class TerminalController {
 
     setTimeout(() => {
       this.write(`cd ${basicConstants.basePath}\r`);
-      this.write("static-server\r");
+      this.write("http-server -p 9080 --cors\r");
 
       this.terminalPTYProcess.onData((data) => {
         this.sendToClient(data);
