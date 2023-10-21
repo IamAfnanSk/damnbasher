@@ -75,7 +75,7 @@ export class TerminalController {
 
   sendLogo() {
     this.sendToClient(`\r\x1b[1;36m
-                .\r            
+                .\r
                 .::::.\r
                 .:::::.\r
                  .:::::.\r
