@@ -29,7 +29,6 @@ export class TerminalController {
     this.sendLogo();
 
     setTimeout(() => {
-      this.write("su damner\r");
       this.write(`cd ${basicConstants.basePath}\r`);
       this.write("static-server\r");
 
