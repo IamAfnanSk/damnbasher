@@ -11,12 +11,13 @@ export class TerminalController {
 
   constructor(socket: Socket) {
     this.socket = socket;
+
     this.terminalPTYProcess = terminalPTY.spawn(this.shell, [], {
       name: "xterm-color",
       cwd: process.env.HOME,
       // @ts-ignore
       env: process.env,
-      cols: 80,
+      cols: 100,
       rows: 10,
     });
 
@@ -29,14 +30,13 @@ export class TerminalController {
     this.write(`cd ${basicConstants.basePath}\r`);
     this.write("clear\r");
 
-    this.sendCodedamnLogo();
+    this.sendLogo();
 
-    setTimeout(() => {
-      this.write("\r");
-      this.terminalPTYProcess.onData((data) => {
-        this.sendToClient(data);
-      });
-    }, 5000);
+    this.write("\r");
+
+    this.terminalPTYProcess.onData((data) => {
+      this.sendToClient(data);
+    });
 
     this.socket.on("disconnect", () => {
       this.write("\u0003\r");
@@ -73,26 +73,19 @@ export class TerminalController {
     this.socket.emit("output", data);
   }
 
-  sendCodedamnLogo() {
+  sendLogo() {
     this.sendToClient(`\r\x1b[1;36m
-                      WWW\r
-                    WW   WW\r
-                    WW   WW\r
-                     WW WW\r
-              \r
-              VWW     WWWWW   WWV\r
-            WWW     WW          WWW\r
-          WWW       WW            WWW\r
-            WWW     WWV         WWW\r
-              WWW     WWWWW   WWW\r
-              \r
-                      WWW\r
-                     WW WW\r
-                    WW  WW\r
-                    WW   WW\r
-                   WW    WW\r
-                   WW     WW\r
-                    \r
+                .\r            
+                .::::.\r
+                .:::::.\r
+                 .:::::.\r
+                  .::::::\r
+                    ::::::.\r
+              .:.    .:::::.\r
+            =#####=   .::::::\r
+           -#######=    ::::::.\r
+           .#######:     .:::::.\r
+             -+++-         ....\r           
           Completly interactive terminal\r\x1b[00m`);
 
     this.sendToClient("\n");
